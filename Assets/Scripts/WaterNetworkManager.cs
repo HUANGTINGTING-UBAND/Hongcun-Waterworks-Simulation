@@ -35,6 +35,14 @@ public class WaterNetworkManager : MonoBehaviour
     public float rainIntensity = 0f; 
     public string currentPeriod = "Morning"; 
 
+    [Header("Disaster Simulation System")]
+    public string activeDisaster = null; // "flood", "fire", or null
+    public string fireNodeName = null;
+    public float fireIntensity = 100f;
+    public float disasterTimeLeft = 0f;
+    public bool disasterCompleted = false;
+    public string disasterResult = ""; // "success" or "failure"
+
     public void SimulationTick(float deltaTime)
     {
         UpdateNodeEnvironmentInputs(deltaTime);
@@ -50,6 +58,7 @@ public class WaterNetworkManager : MonoBehaviour
 
         ApplyFlowAndQualityChanges(calculatedFlows, calculatedQualities, deltaTime);
         ProcessNodeSpecialLogics(deltaTime);
+        UpdateDisasterSimulation(calculatedFlows, deltaTime);
     }
 
     private float CalculateEdgeFlow(WaterEdge edge)
@@ -58,7 +67,15 @@ public class WaterNetworkManager : MonoBehaviour
         float deltaH = edge.fromNode.elevation - edge.toNode.elevation;
         if (deltaH <= 0) return 0f; 
         float potentialFlow = deltaH * 15f * (edge.width * 10f); 
-        return Mathf.Min(potentialFlow, edge.maxFlowRate) * edge.gateOpenRatio;
+        float flow = Mathf.Min(potentialFlow, edge.maxFlowRate) * edge.gateOpenRatio;
+
+        // 梅雨季山洪：西溪源头进水量飙升至 300%
+        if (activeDisaster == "flood" && edge.fromNode.type == NodeType.RiverSource)
+        {
+            flow *= 3.0f;
+        }
+
+        return flow;
     }
 
     private void UpdateNodeEnvironmentInputs(float deltaTime)
@@ -111,5 +128,122 @@ public class WaterNetworkManager : MonoBehaviour
                 node.waterQuality = Mathf.MoveTowards(node.waterQuality, 95f, 2f * deltaTime);
             if (node.IsFlooding) { float overflow = node.currentVolume - node.maxCapacity; node.currentVolume = node.maxCapacity; Debug.LogWarning($"【漫溢】{node.nodeName}: {overflow} L"); }
         }
+    }
+
+    private void UpdateDisasterSimulation(Dictionary<WaterEdge, float> flows, float deltaTime)
+    {
+        if (string.IsNullOrEmpty(activeDisaster)) return;
+
+        // 倒计时
+        if (disasterTimeLeft > 0)
+        {
+            disasterTimeLeft = Mathf.Max(0f, disasterTimeLeft - deltaTime);
+            if (disasterTimeLeft <= 0)
+            {
+                EvaluateDisasterOutcome();
+                return;
+            }
+        }
+
+        if (activeDisaster == "fire" && !string.IsNullOrEmpty(fireNodeName))
+        {
+            WaterNode fNode = nodes.Find(n => n.nodeName == fireNodeName);
+            if (fNode != null)
+            {
+                // 寻找流入该火灾节点的所有水渠
+                List<WaterEdge> incomingEdges = edges.FindAll(e => e.toNode == fNode);
+                float totalInflow = 0f;
+                float totalSilt = 0f;
+                
+                var policyManager = GetComponent<VillagePolicyManager>();
+
+                foreach (var edge in incomingEdges)
+                {
+                    totalInflow += flows.ContainsKey(edge) ? flows[edge] : 0f;
+                    if (policyManager != null)
+                    {
+                        totalSilt += policyManager.GetSiltLevel(edge);
+                    }
+                }
+
+                float avgSilt = incomingEdges.Count > 0 ? totalSilt / incomingEdges.Count : 0f;
+
+                // 抽水灭火
+                float waterDrawn = Mathf.Min(fNode.currentVolume, 12f * deltaTime);
+                fNode.currentVolume -= waterDrawn;
+
+                if (totalInflow > 3.0f)
+                {
+                    // 灭火速率，受总流入流量影响，且受泥沙疏淤折减
+                    float extRate = Mathf.Max(1.5f, totalInflow * 0.18f * (1.0f - avgSilt * 0.75f));
+                    fireIntensity = Mathf.Max(0f, fireIntensity - extRate * deltaTime);
+                    if (fireIntensity <= 0f)
+                    {
+                        fireNodeName = null; // 成功扑灭
+                    }
+                }
+                else
+                {
+                    // 流量过低火势蔓延
+                    fireIntensity = Mathf.Min(100f, fireIntensity + 1.5f * deltaTime);
+                    
+                    // 白银、声望随火灾暴跌
+                    if (policyManager != null)
+                    {
+                        policyManager.silverCoins = Mathf.Max(0f, policyManager.silverCoins - 12f * deltaTime);
+                        policyManager.clanPrestige = Mathf.Max(10f, policyManager.clanPrestige - 3f * deltaTime);
+                    }
+                }
+            }
+        }
+    }
+
+    private void EvaluateDisasterOutcome()
+    {
+        disasterCompleted = true;
+        
+        // 评估条件：无漫溢、居民水质合格、火扑灭
+        bool noFlooding = true;
+        foreach (var node in nodes)
+        {
+            if (node.IsFlooding)
+            {
+                noFlooding = false;
+                break;
+            }
+        }
+
+        bool allWaterSafe = true;
+        foreach (var node in nodes)
+        {
+            if (node.type == NodeType.Residential && node.waterQuality < 65f)
+            {
+                allWaterSafe = false;
+                break;
+            }
+        }
+
+        bool fireExtinguished = activeDisaster == "fire" ? (string.IsNullOrEmpty(fireNodeName) || fireIntensity <= 0f) : true;
+
+        var policyManager = GetComponent<VillagePolicyManager>();
+
+        if (noFlooding && allWaterSafe && fireExtinguished)
+        {
+            disasterResult = "success";
+            if (policyManager != null)
+            {
+                policyManager.silverCoins += 200f;
+                policyManager.clanPrestige = Mathf.Min(150f, policyManager.clanPrestige + 30f);
+            }
+            Debug.Log("【天灾挑战成功】族长夫人胡重对你的治水成果大加赞赏，汪氏基业得以保全！");
+        }
+        else
+        {
+            disasterResult = "failure";
+            Debug.LogWarning("【天灾挑战失败】治水失败，水火无情！请调节闸门、疏浚水圳后再试一次。");
+        }
+
+        activeDisaster = null;
+        fireNodeName = null;
     }
 }
