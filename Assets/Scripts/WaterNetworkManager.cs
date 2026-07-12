@@ -43,6 +43,12 @@ public class WaterNetworkManager : MonoBehaviour
     public bool disasterCompleted = false;
     public string disasterResult = ""; // "success" or "failure"
 
+    [Header("Campaign System - Level 1")]
+    public int currentEra = 1;
+    public float objective1Timer = 0f;
+    public bool objective1Passed = false;
+    public bool objective2Passed = false;
+
     public void SimulationTick(float deltaTime)
     {
         UpdateNodeEnvironmentInputs(deltaTime);
@@ -59,6 +65,7 @@ public class WaterNetworkManager : MonoBehaviour
         ApplyFlowAndQualityChanges(calculatedFlows, calculatedQualities, deltaTime);
         ProcessNodeSpecialLogics(deltaTime);
         UpdateDisasterSimulation(calculatedFlows, deltaTime);
+        UpdateCampaignProgress(deltaTime);
     }
 
     private float CalculateEdgeFlow(WaterEdge edge)
@@ -235,6 +242,10 @@ public class WaterNetworkManager : MonoBehaviour
                 policyManager.silverCoins += 200f;
                 policyManager.clanPrestige = Mathf.Min(150f, policyManager.clanPrestige + 30f);
             }
+            if (currentEra == 1 && activeDisaster == "flood")
+            {
+                objective2Passed = true;
+            }
             Debug.Log("【天灾挑战成功】族长夫人胡重对你的治水成果大加赞赏，汪氏基业得以保全！");
         }
         else
@@ -245,5 +256,48 @@ public class WaterNetworkManager : MonoBehaviour
 
         activeDisaster = null;
         fireNodeName = null;
+    }
+
+    private void UpdateCampaignProgress(float deltaTime)
+    {
+        if (currentEra != 1) return;
+
+        // 任务目标 1（清晨饮水大考）
+        if (currentPeriod == "Morning")
+        {
+            WaterNode wangNode = nodes.Find(n => n.nodeName == "WangClanHall");
+            WaterNode lexuNode = nodes.Find(n => n.nodeName == "LexuHall");
+            if (wangNode != null && lexuNode != null && wangNode.waterQuality >= 85f && lexuNode.waterQuality >= 85f)
+            {
+                objective1Timer += deltaTime;
+                if (objective1Timer >= 15f)
+                {
+                    objective1Passed = true;
+                }
+            }
+            else
+            {
+                objective1Timer = 0f;
+            }
+        }
+        else
+        {
+            objective1Timer = 0f;
+        }
+
+        // 锁定初始资源与数值失败判定
+        if (activeDisaster == "flood")
+        {
+            var policyManager = GetComponent<VillagePolicyManager>();
+            if (policyManager != null)
+            {
+                if (policyManager.silverCoins <= 0f || policyManager.clanPrestige <= 10f)
+                {
+                    disasterCompleted = true;
+                    disasterResult = "failure";
+                    activeDisaster = null;
+                }
+            }
+        }
     }
 }
