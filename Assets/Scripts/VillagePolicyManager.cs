@@ -7,7 +7,7 @@ public class VillagePolicyManager : MonoBehaviour
 {
     private WaterNetworkManager networkManager;
     public float clanPrestige = 100f;  
-    public float silverCoins = 500f;   
+    public float silverCoins = 300f;   
     private HashSet<PolicyType> activePolicies = new HashSet<PolicyType>();
     private Dictionary<WaterEdge, float> ditchSiltLevels = new Dictionary<WaterEdge, float>();
     private HashSet<WaterNode> turtleHabitats = new HashSet<WaterNode>();
