@@ -56,4 +56,10 @@ public class VillagePolicyManager : MonoBehaviour
             if ((edge.toNode == node || edge.fromNode == node) && ditchSiltLevels.ContainsKey(edge))
                 ditchSiltLevels[edge] = Mathf.Max(0f, ditchSiltLevels[edge] - 0.01f * deltaTime);
     }
+
+    public float GetSiltLevel(WaterEdge edge)
+    {
+        if (ditchSiltLevels.ContainsKey(edge)) return ditchSiltLevels[edge];
+        return 0f;
+    }
 }
