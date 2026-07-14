@@ -1,0 +1,17 @@
+{
+  "id": "stage_00_natural_hongcun",
+  "name": "自然宏村阶段",
+  "type": "historical_stage",
+  "description": "人工水利系统建设之前的自然地形阶段",
+  "features": [
+    "leigang_mountain",
+    "natural_stream",
+    "original_valley"
+  ],
+  "systems": {
+    "water_system": false,
+    "moon_pond": false,
+    "south_lake": false
+  },
+  "player_goal": "observe_and_survey_terrain"
+}
