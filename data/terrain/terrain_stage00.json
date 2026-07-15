@@ -1,34 +1,129 @@
 {
   "id": "terrain_stage00_prototype",
   "type": "terrain_prototype",
-  "source": "Project Bible v2.1 / TASK-001 programmatic prototype",
+  "source": "Project Bible v2.1 / TERRAIN_PIPELINE Stage 0 prototype rules",
   "confidence": "D",
   "gameAdjustment": true,
   "stage": "stage_00_natural_hongcun",
   "coordinateSystem": "prototype_normalized_local",
-  "disclaimer": "程序化原型数据，仅用于验证 Stage 0 场景结构；不是 GIS、DEM 或真实测绘复原，不表示真实高程、坡度或距离。",
-  "features": [
+  "disclaimer": "D级程序化视觉原型，仅用于验证山、坡地、河谷与溪流的连续空间关系；不是 GIS、DEM 或真实测绘复原，所有高度、尺度与坡度均为归一化视觉参数。",
+  "space": {
+    "id": "stage00_prototype_space",
+    "type": "normalized_visual_space",
+    "source": "TERRAIN_PIPELINE Stage 0 prototype rules",
+    "confidence": "D",
+    "gameAdjustment": true,
+    "extent": [1, 1],
+    "sceneSpan": 18,
+    "heightMode": "relative_visual_units"
+  },
+  "heightField": {
+    "id": "stage00_height_field",
+    "type": "procedural_height_field",
+    "source": "TERRAIN_PIPELINE multi-scale noise prototype rules",
+    "confidence": "D",
+    "gameAdjustment": true,
+    "gridResolution": 96,
+    "seed": 1407,
+    "baseLevel": 0.08,
+    "visualHeightScale": 3.4,
+    "noiseLayers": [
+      {
+        "id": "landform_noise",
+        "type": "large_scale_noise",
+        "source": "TERRAIN_PIPELINE large-scale prototype rule",
+        "confidence": "D",
+        "gameAdjustment": true,
+        "frequency": 1.1,
+        "amplitude": 0.16
+      },
+      {
+        "id": "slope_noise",
+        "type": "medium_scale_noise",
+        "source": "TERRAIN_PIPELINE medium-scale prototype rule",
+        "confidence": "D",
+        "gameAdjustment": true,
+        "frequency": 3.2,
+        "amplitude": 0.065
+      },
+      {
+        "id": "surface_noise",
+        "type": "small_scale_noise",
+        "source": "TERRAIN_PIPELINE small-scale prototype rule",
+        "confidence": "D",
+        "gameAdjustment": true,
+        "frequency": 8,
+        "amplitude": 0.018
+      }
+    ]
+  },
+  "landforms": [
     {
-      "id": "leigang_mountain_prototype",
-      "type": "mountain_mass",
-      "source": "Project Bible v2.1 Stage 0 concept",
+      "id": "leigang_hills_prototype",
+      "type": "distant_hills",
+      "source": "Project Bible Stage 0 spatial concept",
       "confidence": "D",
       "gameAdjustment": true,
-      "shape": "continuous_gentle_hills",
-      "position": [-0.35, 0.25],
-      "relativeHeight": 0.75,
-      "relativeScale": [0.7, 0.55]
+      "position": [-0.38, 0.34],
+      "radius": [0.98, 0.76],
+      "relativeHeight": 0.78,
+      "transition": 1.7
     },
     {
-      "id": "original_valley_prototype",
-      "type": "valley",
-      "source": "Project Bible v2.1 Stage 0 concept",
+      "id": "foothill_slope_prototype",
+      "type": "foothill_slope",
+      "source": "TERRAIN_PIPELINE layered landform prototype rule",
       "confidence": "D",
       "gameAdjustment": true,
-      "shape": "open_valley_floor",
-      "position": [0.2, -0.1],
-      "relativeHeight": 0.15,
-      "relativeScale": [0.65, 0.5]
+      "position": [-0.12, 0.12],
+      "radius": [1, 0.96],
+      "relativeHeight": 0.3,
+      "transition": 2.1
+    },
+    {
+      "id": "river_valley_prototype",
+      "type": "valley_plain",
+      "source": "Project Bible Stage 0 valley concept",
+      "confidence": "D",
+      "gameAdjustment": true,
+      "position": [0.22, -0.15],
+      "radius": [1, 0.82],
+      "relativeHeight": 0.11,
+      "transition": 2.4
+    }
+  ],
+  "surfaceZones": [
+    {
+      "id": "hill_surface",
+      "type": "hill",
+      "source": "VISUAL_BIBLE 03 prototype palette",
+      "confidence": "D",
+      "gameAdjustment": true,
+      "color": "#48604d"
+    },
+    {
+      "id": "foothill_surface",
+      "type": "foothill",
+      "source": "VISUAL_BIBLE 03 prototype palette",
+      "confidence": "D",
+      "gameAdjustment": true,
+      "color": "#68765a"
+    },
+    {
+      "id": "valley_surface",
+      "type": "valley",
+      "source": "VISUAL_BIBLE 03 prototype palette",
+      "confidence": "D",
+      "gameAdjustment": true,
+      "color": "#849071"
+    },
+    {
+      "id": "riparian_surface",
+      "type": "riparian",
+      "source": "VISUAL_BIBLE 03 wet valley prototype palette",
+      "confidence": "D",
+      "gameAdjustment": true,
+      "color": "#536f61"
     }
   ]
 }

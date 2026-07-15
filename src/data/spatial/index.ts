@@ -1,0 +1,1 @@
+export { normalizedToScene } from './prototypeSpace'

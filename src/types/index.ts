@@ -6,11 +6,18 @@ export type {
 } from './historicalData'
 export type { HistoricalStage, StageSystems } from './stage'
 export type {
+  NoiseLayerType,
+  PrototypeSpace,
   Stage00TerrainPrototype,
-  TerrainPrototypeFeature,
-  TerrainPrototypeFeatureType,
+  TerrainHeightFieldConfig,
+  TerrainLandform,
+  TerrainLandformType,
+  TerrainNoiseLayer,
+  TerrainSurfaceType,
+  TerrainSurfaceZone,
 } from './terrain'
 export type {
   NaturalWatercoursePrototype,
   Stage00WaterPrototype,
+  VisualRiverCorridor,
 } from './water'

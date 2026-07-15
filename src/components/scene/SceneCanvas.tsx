@@ -1,10 +1,9 @@
 import { Canvas } from '@react-three/fiber'
 import type { Stage00Data } from '../../data'
-import { Stage00Terrain } from '../../terrain'
-import { Stage00Water } from '../../water'
 import { CameraController } from './CameraController'
 import { SceneEnvironment } from './Environment'
 import { SceneLighting } from './Lighting'
+import { NaturalLandscape } from './NaturalLandscape'
 
 interface SceneCanvasProps {
   stage00: Stage00Data
@@ -25,8 +24,7 @@ export function SceneCanvas({ stage00 }: SceneCanvasProps) {
     >
       <SceneEnvironment />
       <SceneLighting />
-      <Stage00Terrain data={stage00.terrain} />
-      <Stage00Water data={stage00.water} />
+      <NaturalLandscape stage00={stage00} />
       <CameraController />
     </Canvas>
   )

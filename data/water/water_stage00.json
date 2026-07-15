@@ -1,27 +1,43 @@
 {
   "id": "water_stage00_prototype",
   "type": "natural_water_prototype",
-  "source": "Project Bible v2.1 / TASK-001 programmatic prototype",
+  "source": "Project Bible v2.1 / TERRAIN_PIPELINE Stage 0 river rules",
   "confidence": "D",
   "gameAdjustment": true,
   "stage": "stage_00_natural_hongcun",
   "coordinateSystem": "prototype_normalized_local",
-  "disclaimer": "程序化原型数据，仅用于验证 Stage 0 自然水系表现；不是 GIS 或真实水文复原，不表示真实河道位置、长度、宽度或流量。",
+  "disclaimer": "D级程序化视觉原型，仅用于验证自然溪流、河床和河岸的空间表现；不是 GIS 或真实水文复原，不表示真实河道位置、长度、宽度、深度或流量。",
   "watercourses": [
     {
       "id": "natural_stream_prototype",
       "type": "natural_stream",
-      "source": "Project Bible v2.1 Stage 0 concept",
+      "source": "Project Bible Stage 0 natural stream concept",
       "confidence": "D",
       "gameAdjustment": true,
       "flowModel": "visual_direction_only",
+      "color": "#5c918e",
       "path": [
-        [-0.85, 0.3],
-        [-0.45, 0.12],
-        [-0.05, -0.02],
-        [0.4, -0.18],
-        [0.85, -0.35]
-      ]
+        [-0.92, 0.34],
+        [-0.66, 0.25],
+        [-0.42, 0.12],
+        [-0.16, 0.01],
+        [0.08, -0.04],
+        [0.34, -0.17],
+        [0.62, -0.23],
+        [0.9, -0.37]
+      ],
+      "corridor": {
+        "id": "natural_stream_corridor_prototype",
+        "type": "visual_river_corridor",
+        "source": "TERRAIN_PIPELINE river corridor prototype rule",
+        "confidence": "D",
+        "gameAdjustment": true,
+        "surfaceWidth": 0.032,
+        "bedWidth": 0.052,
+        "bankWidth": 0.11,
+        "bedDepth": 0.055,
+        "surfaceOffset": 0.01
+      }
     }
   ]
 }

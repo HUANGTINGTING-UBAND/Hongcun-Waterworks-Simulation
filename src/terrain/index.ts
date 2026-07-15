@@ -1,2 +1,8 @@
-export { Stage00Terrain } from './Stage00Terrain'
-export { toScenePosition } from './prototypeCoordinates'
+export { generateHeightField } from './generator/generateHeightField'
+export { TerrainRenderer } from './rendering'
+export { ProceduralTerrainProvider } from './providers'
+export type {
+  GeneratedTerrain,
+  RiverTerrainModifier,
+  TerrainProvider,
+} from './providers'
