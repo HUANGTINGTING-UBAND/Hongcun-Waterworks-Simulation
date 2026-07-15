@@ -1,0 +1,27 @@
+{
+  "id": "water_stage00_prototype",
+  "type": "natural_water_prototype",
+  "source": "Project Bible v2.1 / TASK-001 programmatic prototype",
+  "confidence": "D",
+  "gameAdjustment": true,
+  "stage": "stage_00_natural_hongcun",
+  "coordinateSystem": "prototype_normalized_local",
+  "disclaimer": "程序化原型数据，仅用于验证 Stage 0 自然水系表现；不是 GIS 或真实水文复原，不表示真实河道位置、长度、宽度或流量。",
+  "watercourses": [
+    {
+      "id": "natural_stream_prototype",
+      "type": "natural_stream",
+      "source": "Project Bible v2.1 Stage 0 concept",
+      "confidence": "D",
+      "gameAdjustment": true,
+      "flowModel": "visual_direction_only",
+      "path": [
+        [-0.85, 0.3],
+        [-0.45, 0.12],
+        [-0.05, -0.02],
+        [0.4, -0.18],
+        [0.85, -0.35]
+      ]
+    }
+  ]
+}

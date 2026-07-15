@@ -2,6 +2,9 @@
   "id": "stage_00_natural_hongcun",
   "name": "自然宏村阶段",
   "type": "historical_stage",
+  "source": "Project Bible v2.1 / TASK-001 Stage 0 prototype definition",
+  "confidence": "D",
+  "gameAdjustment": true,
   "description": "人工水利系统建设之前的自然地形阶段",
   "features": [
     "leigang_mountain",
