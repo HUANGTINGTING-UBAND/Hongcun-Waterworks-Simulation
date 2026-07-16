@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hongcun-water-pulse.local/schemas/terrain_asset_manifest.schema.json",
+  "title": "Hongcun Terrain Asset Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "source",
+    "confidence",
+    "gameAdjustment",
+    "classification",
+    "status",
+    "license",
+    "attribution",
+    "spatialReference",
+    "bounds",
+    "pixelSize",
+    "resolution",
+    "sha256",
+    "normalization"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "terrain_asset_manifest" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset", "product", "provider", "accessed", "doi", "sourceFile", "dataType"],
+      "properties": {
+        "dataset": { "type": "string", "minLength": 1 },
+        "product": { "type": "string", "minLength": 1 },
+        "provider": { "type": "string", "minLength": 1 },
+        "accessed": { "type": "string", "format": "date" },
+        "doi": { "type": "string", "minLength": 1 },
+        "sourceFile": { "type": "string", "minLength": 1 },
+        "dataType": { "enum": ["DEM", "DSM", "DTM", "heightmap"] }
+      }
+    },
+    "confidence": { "enum": ["A", "B", "C", "D"] },
+    "gameAdjustment": { "type": "boolean" },
+    "classification": { "const": "regional_terrain_source" },
+    "status": { "const": "source_not_final_game_asset" },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "verificationStatus", "redistributionApproved", "notes"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "verificationStatus": { "enum": ["verified", "verification_required"] },
+        "redistributionApproved": { "type": "boolean" },
+        "notes": { "type": "string", "minLength": 1 }
+      }
+    },
+    "attribution": { "type": "string", "minLength": 1 },
+    "spatialReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["horizontalCRS", "verticalDatum", "axisOrder"],
+      "properties": {
+        "horizontalCRS": { "type": "string", "minLength": 1 },
+        "verticalDatum": { "type": "string", "minLength": 1 },
+        "axisOrder": { "type": "string", "minLength": 1 }
+      }
+    },
+    "bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["crs", "west", "south", "east", "north"],
+      "properties": {
+        "crs": { "type": "string", "minLength": 1 },
+        "west": { "type": "number" },
+        "south": { "type": "number" },
+        "east": { "type": "number" },
+        "north": { "type": "number" }
+      }
+    },
+    "pixelSize": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "unit"],
+      "properties": {
+        "x": { "type": "number", "exclusiveMinimum": 0 },
+        "y": { "type": "number", "exclusiveMinimum": 0 },
+        "unit": { "type": "string", "minLength": 1 }
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height", "sampleType", "noDataSamples"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "sampleType": { "type": "string", "minLength": 1 },
+        "noDataSamples": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "sha256": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source"],
+      "properties": {
+        "source": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "derivedHeightmap": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "normalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "minimumElevation", "maximumElevation", "unit", "clamped", "finalAssetTransform"],
+      "properties": {
+        "mode": { "type": "string", "minLength": 1 },
+        "minimumElevation": { "type": "number" },
+        "maximumElevation": { "type": "number" },
+        "unit": { "type": "string", "minLength": 1 },
+        "clamped": { "type": "boolean" },
+        "finalAssetTransform": { "type": ["object", "null"] }
+      }
+    },
+    "provenanceNotes": { "type": "array", "items": { "type": "string" } }
+  }
+}

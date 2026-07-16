@@ -1,0 +1,66 @@
+{
+  "id": "hongcun_copernicus_glo30_regional_source_v1",
+  "type": "terrain_asset_manifest",
+  "source": {
+    "dataset": "Copernicus GLO-30 Digital Surface Model",
+    "product": "Copernicus GLO-30 DSM",
+    "provider": "European Space Agency, distributed by OpenTopography",
+    "accessed": "2026-07-16",
+    "doi": "https://doi.org/10.5069/G9028PQB",
+    "sourceFile": "output_hh.tif",
+    "dataType": "DSM"
+  },
+  "confidence": "A",
+  "gameAdjustment": false,
+  "classification": "regional_terrain_source",
+  "status": "source_not_final_game_asset",
+  "license": {
+    "name": "Copernicus DEM licence and OpenTopography access terms",
+    "verificationStatus": "verification_required",
+    "redistributionApproved": false,
+    "notes": "来源身份与引用已记录；原始裁切数据及派生游戏资产进入公开仓库前，仍须归档适用许可证并确认再分发条件。"
+  },
+  "attribution": "European Space Agency (2024). Copernicus Global Digital Elevation Model. Distributed by OpenTopography. https://doi.org/10.5069/G9028PQB. Accessed 2026-07-16.",
+  "spatialReference": {
+    "horizontalCRS": "EPSG:4326 (WGS 84)",
+    "verticalDatum": "EPSG:3855 (EGM2008 geoid height)",
+    "axisOrder": "longitude, latitude"
+  },
+  "bounds": {
+    "crs": "EPSG:4326",
+    "west": 117.89999998888887,
+    "south": 29.92000001111111,
+    "east": 118.07999998888887,
+    "north": 30.10000001111111
+  },
+  "pixelSize": {
+    "x": 0.0002777777777777778,
+    "y": 0.0002777777777777778,
+    "unit": "degree"
+  },
+  "resolution": {
+    "width": 648,
+    "height": 648,
+    "sampleType": "32-bit IEEE floating point",
+    "noDataSamples": 0
+  },
+  "sha256": {
+    "source": "18144982ac815f86f46c1cdc1d5f6151b55d783b76b0779ef3bc5bee9b01f25d",
+    "derivedHeightmap": "18e1cc3a7c607d5c1842923084fc37bd03b45f4e4fb3058b959959d130709139"
+  },
+  "normalization": {
+    "mode": "source_range_to_uint16",
+    "minimumElevation": 191.5,
+    "maximumElevation": 1424.9803466796875,
+    "unit": "meter_EGM2008",
+    "clamped": false,
+    "finalAssetTransform": null
+  },
+  "provenanceNotes": [
+    "区域覆盖约 17.35 × 19.95 km。",
+    "GLO-30 为约 30 m DSM，只用于区域山体、山脊和河谷骨架。",
+    "4033×4033 高度图是插值派生产物，不增加真实空间精度。",
+    "月沼、南湖岸坡、水圳、道路和建筑台地需要独立高精度资料与人工修正。",
+    "原始 GeoTIFF 和派生二进制资产当前未纳入仓库，等待许可证与存储策略确认。"
+  ]
+}
