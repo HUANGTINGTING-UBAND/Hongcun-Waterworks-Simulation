@@ -3,4 +3,7 @@ dist/
 *.local
 *.tsbuildinfo
 .DS_Store
-
+*.blend1
+world/assets/architecture/previews/*_temp.*
+world/assets/architecture/previews/*_audit.*
+world/assets/architecture/previews/render_tmp/

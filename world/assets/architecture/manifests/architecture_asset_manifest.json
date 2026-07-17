@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifestId": "hongcun_architecture_asset_freeze_m009g_v001",
+  "generatedOn": "2026-07-17",
+  "root": "world/assets/architecture",
+  "freezePolicy": {
+    "approvedAssetId": "arch_hui_prefab_hongcun_house_test_b_material_v001",
+    "newModelProductionAllowed": false,
+    "duplicateGlbExportAllowed": false,
+    "sourceBlendFilesAreEditable": false
+  },
+  "assets": [
+    {
+      "asset_id": "arch_hui_source_walls_foundation_v001",
+      "file_path": "world/assets/architecture/source/hui_architecture_blockout_walls_v001.blend",
+      "type": "source_module_library",
+      "blender_file_size_bytes": 103238,
+      "sha256": "a2fd26d4b6eeaf9cfbf2ca622ef5f84ebf3bc44af9794cf3a9ddbc63a1cfb80e",
+      "mesh_count": 6,
+      "materials": [],
+      "status": "prototype"
+    },
+    {
+      "asset_id": "arch_hui_source_roof_3m_v001",
+      "file_path": "world/assets/architecture/source/roof_blockout_v001.blend",
+      "type": "source_module_library",
+      "blender_file_size_bytes": 406981,
+      "sha256": "8ee97cb28e4e966779f56b37d4c5f949bc2c0ea406504f48f46e63cec5cd5c0e",
+      "mesh_count": 5,
+      "materials": [
+        "BlackTile_Material"
+      ],
+      "status": "prototype"
+    },
+    {
+      "asset_id": "arch_hui_source_details_v001",
+      "file_path": "world/assets/architecture/source/hui_architecture_details_v001.blend",
+      "type": "source_module_library",
+      "blender_file_size_bytes": 480294,
+      "sha256": "e225342d7c24e40429050ecf9c69fe820641e7fafa0a1f180e2d73c349a95808",
+      "mesh_count": 5,
+      "materials": [
+        "MAT_ARCH_HUI_BLACKTILE_A",
+        "MAT_ARCH_HUI_WHITEWALL_A",
+        "MAT_ARCH_HUI_WOOD_A"
+      ],
+      "status": "prototype"
+    },
+    {
+      "asset_id": "arch_hui_source_scale_extension_v001",
+      "file_path": "world/assets/architecture/source/architecture_scale_extension_v001.blend",
+      "type": "source_module_library",
+      "blender_file_size_bytes": 477458,
+      "sha256": "7683d01f4743e8782041b7dffa2e5c2c89a13fdd03a94957bc60c78f91b5c681",
+      "mesh_count": 5,
+      "materials": [
+        "MAT_ARCH_HUI_BLACKTILE_A",
+        "MAT_ARCH_HUI_WHITEWALL_A"
+      ],
+      "status": "prototype"
+    },
+    {
+      "asset_id": "arch_hui_prefab_hongcun_house_test_a_v001",
+      "file_path": "world/assets/architecture/prefabs/hongcun_house_test_a_v001.blend",
+      "type": "assembled_test_prefab",
+      "blender_file_size_bytes": 691202,
+      "sha256": "eff512a7d00e6752c88d7e0d2fa025bb98b9a4e2a9944359e5d6c2b44266e5cd",
+      "mesh_count": 43,
+      "materials": [
+        "MAT_ARCH_HUI_BLACKTILE_A",
+        "MAT_ARCH_HUI_BLACKTILE_A.001",
+        "MAT_ARCH_HUI_STONE_A",
+        "MAT_ARCH_HUI_WHITEWALL_A",
+        "MAT_ARCH_HUI_WHITEWALL_A.001",
+        "MAT_ARCH_HUI_WOOD_A.001",
+        "PREVIEW_Ground_Material"
+      ],
+      "status": "prototype"
+    },
+    {
+      "asset_id": "arch_hui_prefab_hongcun_house_test_b_v001",
+      "file_path": "world/assets/architecture/prefabs/hongcun_house_test_b_v001.blend",
+      "type": "assembled_test_prefab",
+      "blender_file_size_bytes": 626904,
+      "sha256": "f974dbb0e7a5635eaa15068fe83c053e5859ee64ca0cbada854e544883f5a606",
+      "mesh_count": 42,
+      "materials": [
+        "MAT_ARCH_HUI_BLACKTILE_A",
+        "MAT_ARCH_HUI_BLACKTILE_A.002",
+        "MAT_ARCH_HUI_STONE_A",
+        "MAT_ARCH_HUI_WHITEWALL_A",
+        "MAT_ARCH_HUI_WHITEWALL_A.002",
+        "MAT_ARCH_HUI_WOOD_A"
+      ],
+      "status": "prototype"
+    },
+    {
+      "asset_id": "arch_hui_prefab_hongcun_house_test_b_material_v001",
+      "file_path": "world/assets/architecture/prefabs/hongcun_house_test_b_material_v001.blend",
+      "type": "material_validated_prefab",
+      "blender_file_size_bytes": 719223,
+      "sha256": "30223e9cfb7ffc5cfe100644ccf9858c0c9f60002dadc05d83571f89a856a073",
+      "mesh_count": 42,
+      "materials": [
+        "Hui_BlackTile",
+        "Hui_StoneBase",
+        "Hui_WhiteWall",
+        "Hui_Wood"
+      ],
+      "status": "approved"
+    },
+    {
+      "asset_id": "arch_hui_test_layout_walls_v001",
+      "file_path": "world/assets/architecture/previews/architecture_test_layout_v001.blend",
+      "type": "assembly_validation_scene",
+      "blender_file_size_bytes": 106609,
+      "sha256": "afaa69a7db43d28fc5474f775028098033fc418924b201a81e64e5789cee831c",
+      "mesh_count": 12,
+      "materials": [],
+      "status": "prototype"
+    }
+  ],
+  "validation_artifacts": [
+    {
+      "artifact_id": "arch_hui_material_preview_v001",
+      "file_path": "world/assets/architecture/previews/preview_render.png",
+      "type": "material_validation_image",
+      "file_size_bytes": 530958,
+      "sha256": "b09a2755e1271fe0a5d02b55309896cbd660768daed827c2367d7da9cceba920",
+      "validates_asset_id": "arch_hui_prefab_hongcun_house_test_b_material_v001"
+    },
+    {
+      "artifact_id": "arch_hui_legacy_preview_sheet",
+      "file_path": "world/assets/architecture/previews/preview_sheet.png",
+      "type": "prototype_preview_image",
+      "file_size_bytes": 1552184,
+      "sha256": "ae50a256bee4a97c24cf116294c3ba44b6ba8232ebd33cd44e7d3b69c5bca660"
+    }
+  ],
+  "excluded_from_registry": [
+    {
+      "pattern": "**/*.blend1",
+      "reason": "Blender automatic backup; not a release asset"
+    },
+    {
+      "pattern": "**/.DS_Store",
+      "reason": "Operating-system metadata; not a project asset"
+    },
+    {
+      "pattern": "**/.gitkeep",
+      "reason": "Directory placeholder; not an asset"
+    }
+  ]
+}
