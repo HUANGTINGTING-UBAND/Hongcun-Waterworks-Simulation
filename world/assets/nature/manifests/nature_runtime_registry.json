@@ -22,7 +22,13 @@
     ],
     "properties": {
       "asset_id": {"type": "string", "minLength": 1},
+      "source_name": {"type": "string", "minLength": 1},
+      "production_name": {"type": "string", "minLength": 1},
       "display_name": {"type": "string", "minLength": 1},
+      "usage_category": {
+        "type": "string",
+        "enum": ["mountain_tree", "valley_tree", "riverside_plant", "ground_cover", "rock", "decorative_flower"]
+      },
       "category": {
         "type": "string",
         "enum": ["mountain_tree", "valley_tree", "riverside_plant", "ground_cover", "rock", "decorative_flower"]
@@ -43,6 +49,7 @@
         "required": ["path", "format", "sha256", "bytes"],
         "properties": {
           "path": {"type": "string", "pattern": "\\.glb$"},
+          "version": {"type": "integer", "minimum": 1},
           "format": {"const": "glTF 2.0 Binary"},
           "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
           "bytes": {"type": "integer", "minimum": 1}
@@ -131,6 +138,47 @@
       "status": "approved",
       "validation_report": "docs/development/HONGCUN_TREE_COMMON_A_GLB_VALIDATION.md",
       "archive_commit": "045619c"
+    },
+    {
+      "asset_id": "NAT_TREE_COMMON_03",
+      "source_name": "CommonTree_3",
+      "production_name": "Hongcun_Tree_Common_03",
+      "display_name": "Hongcun Common Tree 03",
+      "usage_category": "valley_tree",
+      "category": "valley_tree",
+      "source": {
+        "external_asset_id": "CommonTree_3",
+        "library": "Quaternius Stylized Nature MegaKit",
+        "manifest": "world/assets/nature/manifests/quaternius_nature_megakit_manifest.json"
+      },
+      "processed": {
+        "path": "world/assets/nature/processed/trees/hongcun_tree_common_03_v001.glb",
+        "version": 1,
+        "format": "glTF 2.0 Binary",
+        "sha256": "63eeb2dde5ce7e80f1ff7eb2e0cb71514127de79ebee6ecdf80e9dcde5db4ee0",
+        "bytes": 9046344
+      },
+      "lod": [
+        {"level": 0, "node": "NAT_TREE_COMMON_03_LOD0", "triangles": 3505},
+        {"level": 1, "node": "NAT_TREE_COMMON_03_LOD1", "triangles": 1947},
+        {"level": 2, "node": "NAT_TREE_COMMON_03_LOD2", "triangles": 905}
+      ],
+      "materials": [
+        "Hongcun_Tree_Common_03_Bark",
+        "Hongcun_Tree_Common_03_Leaf"
+      ],
+      "collision": {
+        "type": "none",
+        "status": "not_in_asset",
+        "required_before_gameplay_placement": true
+      },
+      "instancing": {
+        "allowed": true,
+        "shared_materials_required": true
+      },
+      "status": "validated",
+      "validation_report": "docs/development/COMMON_TREE_3_GLB_VALIDATION.md",
+      "archive_commit": null
     }
   ]
 }
