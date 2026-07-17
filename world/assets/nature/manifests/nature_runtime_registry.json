@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schemaVersion": "1.0.0",
+  "registryStatus": "prototype_schema_with_approved_example",
+  "description": "Runtime-facing registry contract for individually validated Hongcun Nature GLB assets. Presence in this file does not authorize world placement or ecological claims.",
+  "entrySchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "asset_id",
+      "display_name",
+      "category",
+      "source",
+      "processed",
+      "lod",
+      "materials",
+      "collision",
+      "instancing",
+      "status",
+      "validation_report",
+      "archive_commit"
+    ],
+    "properties": {
+      "asset_id": {"type": "string", "minLength": 1},
+      "display_name": {"type": "string", "minLength": 1},
+      "category": {
+        "type": "string",
+        "enum": ["mountain_tree", "valley_tree", "riverside_plant", "ground_cover", "rock", "decorative_flower"]
+      },
+      "source": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["external_asset_id", "library", "manifest"],
+        "properties": {
+          "external_asset_id": {"type": "string"},
+          "library": {"type": "string"},
+          "manifest": {"type": "string"}
+        }
+      },
+      "processed": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "format", "sha256", "bytes"],
+        "properties": {
+          "path": {"type": "string", "pattern": "\\.glb$"},
+          "format": {"const": "glTF 2.0 Binary"},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "bytes": {"type": "integer", "minimum": 1}
+        }
+      },
+      "lod": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level", "node", "triangles"],
+          "properties": {
+            "level": {"type": "integer", "minimum": 0},
+            "node": {"type": "string"},
+            "triangles": {"type": "integer", "minimum": 0}
+          }
+        }
+      },
+      "materials": {
+        "type": "array",
+        "minItems": 1,
+        "items": {"type": "string"}
+      },
+      "collision": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "status"],
+        "properties": {
+          "type": {"type": "string", "enum": ["none", "simple_proxy"]},
+          "status": {"type": "string", "enum": ["not_required", "not_in_asset", "validated"]},
+          "required_before_gameplay_placement": {"type": "boolean"}
+        }
+      },
+      "instancing": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["allowed", "shared_materials_required"],
+        "properties": {
+          "allowed": {"type": "boolean"},
+          "shared_materials_required": {"type": "boolean"}
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": ["planned", "processing", "validation_failed", "validated", "approved", "deprecated"]
+      },
+      "validation_report": {"type": "string"},
+      "archive_commit": {"type": ["string", "null"], "pattern": "^[a-f0-9]{7,40}$"}
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "hongcun_tree_common_a_v002",
+      "display_name": "Hongcun Tree Common A",
+      "category": "mountain_tree",
+      "source": {
+        "external_asset_id": "CommonTree_1",
+        "library": "Quaternius Stylized Nature MegaKit",
+        "manifest": "world/assets/nature/manifests/quaternius_nature_megakit_manifest.json"
+      },
+      "processed": {
+        "path": "world/assets/nature/processed/trees/Hongcun_Tree_Common_A_v002.glb",
+        "format": "glTF 2.0 Binary",
+        "sha256": "2fb88ad035acdbd35ce5c681425c4a03f3234ecccf59d7e6104e2d6a2dbd03c9",
+        "bytes": 9430560
+      },
+      "lod": [
+        {"level": 0, "node": "NAT_MOUNTAIN_TREE_COMMON_A_LOD0", "triangles": 6265},
+        {"level": 1, "node": "NAT_MOUNTAIN_TREE_COMMON_A_LOD1", "triangles": 3132},
+        {"level": 2, "node": "NAT_MOUNTAIN_TREE_COMMON_A_LOD2", "triangles": 1127}
+      ],
+      "materials": [
+        "Hongcun_Nature_Tree_Bark_Material",
+        "Hongcun_Nature_Tree_Material"
+      ],
+      "collision": {
+        "type": "none",
+        "status": "not_in_asset",
+        "required_before_gameplay_placement": true
+      },
+      "instancing": {
+        "allowed": true,
+        "shared_materials_required": true
+      },
+      "status": "approved",
+      "validation_report": "docs/development/HONGCUN_TREE_COMMON_A_GLB_VALIDATION.md",
+      "archive_commit": "045619c"
+    }
+  ]
+}
