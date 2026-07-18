@@ -29,6 +29,12 @@
         "type": "string",
         "enum": ["mountain_tree", "valley_tree", "riverside_plant", "ground_cover", "rock", "decorative_flower"]
       },
+      "biome_roles": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": "string", "minLength": 1}
+      },
       "category": {
         "type": "string",
         "enum": ["mountain_tree", "valley_tree", "riverside_plant", "ground_cover", "rock", "decorative_flower"]
@@ -96,6 +102,18 @@
       "status": {
         "type": "string",
         "enum": ["planned", "processing", "validation_failed", "validated", "approved", "deprecated"]
+      },
+      "validation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["planned", "processing", "validation_failed", "validated", "approved", "deprecated"]
+          },
+          "report": {"type": "string", "minLength": 1}
+        }
       },
       "validation_report": {"type": "string"},
       "archive_commit": {"type": ["string", "null"], "pattern": "^[a-f0-9]{7,40}$"}
@@ -178,6 +196,94 @@
       },
       "status": "validated",
       "validation_report": "docs/development/COMMON_TREE_3_GLB_VALIDATION.md",
+      "archive_commit": null
+    },
+    {
+      "asset_id": "NAT_TREE_COMMON_05",
+      "source_name": "CommonTree_5",
+      "production_name": "Hongcun_Tree_Common_05",
+      "display_name": "Hongcun Common Tree 05",
+      "usage_category": "valley_tree",
+      "category": "valley_tree",
+      "source": {
+        "external_asset_id": "CommonTree_5",
+        "library": "Quaternius Stylized Nature MegaKit",
+        "manifest": "world/assets/nature/manifests/quaternius_nature_megakit_manifest.json"
+      },
+      "processed": {
+        "path": "world/assets/nature/processed/trees/hongcun_tree_common_05_v001.glb",
+        "version": 1,
+        "format": "glTF 2.0 Binary",
+        "sha256": "5520aa6475f4d67841add6daf00757e4f4dd5f63f660602697cc62b4017f9c0e",
+        "bytes": 8936816
+      },
+      "lod": [
+        {"level": 0, "node": "NAT_TREE_COMMON_05_LOD0", "triangles": 3182},
+        {"level": 1, "node": "NAT_TREE_COMMON_05_LOD1", "triangles": 1746},
+        {"level": 2, "node": "NAT_TREE_COMMON_05_LOD2", "triangles": 956}
+      ],
+      "materials": [
+        "Hongcun_Tree_Common_05_Bark",
+        "Hongcun_Tree_Common_05_Leaf"
+      ],
+      "collision": {
+        "type": "none",
+        "status": "not_in_asset",
+        "required_before_gameplay_placement": true
+      },
+      "instancing": {
+        "allowed": true,
+        "shared_materials_required": true
+      },
+      "status": "validated",
+      "validation_report": "docs/development/COMMON_TREE_05_GLB_VALIDATION.md",
+      "archive_commit": null
+    },
+    {
+      "asset_id": "NAT_ROCK_MEDIUM_01",
+      "source_name": "Rock_Medium_1",
+      "production_name": "Hongcun_Rock_Medium_01",
+      "display_name": "Hongcun Medium Rock 01",
+      "usage_category": "rock",
+      "biome_roles": [
+        "stream_bank",
+        "mountain_slope"
+      ],
+      "category": "rock",
+      "source": {
+        "external_asset_id": "Rock_Medium_1",
+        "library": "Quaternius Stylized Nature MegaKit",
+        "manifest": "world/assets/nature/manifests/quaternius_nature_megakit_manifest.json"
+      },
+      "processed": {
+        "path": "world/assets/nature/processed/rocks/hongcun_rock_medium_01_v001.glb",
+        "version": 1,
+        "format": "glTF 2.0 Binary",
+        "sha256": "635c527039c2a4a500606910238a249329bd11aa68b6b12f945ef48cd04c6feb",
+        "bytes": 2542280
+      },
+      "lod": [
+        {"level": 0, "node": "NAT_ROCK_MEDIUM_01_LOD0", "triangles": 342},
+        {"level": 1, "node": "NAT_ROCK_MEDIUM_01_LOD1", "triangles": 188}
+      ],
+      "materials": [
+        "Hongcun_Rock_Medium_01_Material"
+      ],
+      "collision": {
+        "type": "simple_proxy",
+        "status": "not_in_asset",
+        "required_before_gameplay_placement": true
+      },
+      "instancing": {
+        "allowed": true,
+        "shared_materials_required": true
+      },
+      "status": "validated",
+      "validation": {
+        "status": "validated",
+        "report": "docs/development/ROCK_MEDIUM_01_GLB_VALIDATION.md"
+      },
+      "validation_report": "docs/development/ROCK_MEDIUM_01_GLB_VALIDATION.md",
       "archive_commit": null
     }
   ]

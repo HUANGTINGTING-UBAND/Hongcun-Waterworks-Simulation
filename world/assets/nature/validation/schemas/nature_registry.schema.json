@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hongcun-nature-runtime-registry-v001",
+  "title": "Hongcun Nature Runtime Registry v001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "registryStatus",
+    "description",
+    "entrySchema",
+    "assets"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schemaVersion": {"const": "1.0.0"},
+    "registryStatus": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "entrySchema": {"type": "object"},
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "asset_id",
+          "display_name",
+          "category",
+          "source",
+          "processed",
+          "lod",
+          "materials",
+          "collision",
+          "instancing",
+          "status",
+          "validation_report",
+          "archive_commit"
+        ],
+        "properties": {
+          "asset_id": {"type": "string", "minLength": 1},
+          "source_name": {"type": "string", "minLength": 1},
+          "production_name": {"type": "string", "minLength": 1},
+          "display_name": {"type": "string", "minLength": 1},
+          "usage_category": {
+            "type": "string",
+            "enum": ["mountain_tree", "valley_tree", "riverside_plant", "ground_cover", "rock", "decorative_flower"]
+          },
+          "biome_roles": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "category": {
+            "type": "string",
+            "enum": ["mountain_tree", "valley_tree", "riverside_plant", "ground_cover", "rock", "decorative_flower"]
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["external_asset_id", "library", "manifest"],
+            "properties": {
+              "external_asset_id": {"type": "string", "minLength": 1},
+              "library": {"type": "string", "minLength": 1},
+              "manifest": {"type": "string", "minLength": 1}
+            }
+          },
+          "processed": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "format", "sha256", "bytes"],
+            "properties": {
+              "path": {"type": "string", "pattern": "\\.glb$"},
+              "version": {"type": "integer", "minimum": 1},
+              "format": {"const": "glTF 2.0 Binary"},
+              "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+              "bytes": {"type": "integer", "minimum": 1}
+            }
+          },
+          "lod": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["level", "node", "triangles"],
+              "properties": {
+                "level": {"type": "integer", "minimum": 0},
+                "node": {"type": "string", "pattern": "^NAT_.+_LOD[0-9]+$"},
+                "triangles": {"type": "integer", "minimum": 1}
+              }
+            }
+          },
+          "materials": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "collision": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "status"],
+            "properties": {
+              "type": {"type": "string", "enum": ["none", "simple_proxy"]},
+              "status": {"type": "string", "enum": ["not_required", "not_in_asset", "validated"]},
+              "required_before_gameplay_placement": {"type": "boolean"}
+            }
+          },
+          "instancing": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["allowed", "shared_materials_required"],
+            "properties": {
+              "allowed": {"type": "boolean"},
+              "shared_materials_required": {"type": "boolean"}
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["planned", "processing", "validation_failed", "validated", "approved", "deprecated"]
+          },
+          "validation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status"],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": ["planned", "processing", "validation_failed", "validated", "approved", "deprecated"]
+              },
+              "report": {"type": "string", "minLength": 1}
+            }
+          },
+          "validation_report": {"type": "string", "minLength": 1},
+          "archive_commit": {"type": ["string", "null"], "pattern": "^[a-f0-9]{7,40}$"}
+        }
+      }
+    }
+  }
+}
